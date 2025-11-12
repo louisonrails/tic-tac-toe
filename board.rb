@@ -36,11 +36,7 @@ class Board
   end
 
   def update_board(position, marker)
-    if valid_position?(position)
-      @grid[position] = marker
-    else
-      puts 'Invalid move! Position already taken.'
-    end
+    @grid[position] = marker
   end
 
   def valid_position?(position)

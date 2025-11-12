@@ -15,7 +15,7 @@ class Game
     until game_over?
       @board.display
       turn
-      switch_player
+      switch_player unless game_over?
     end
     @board.display
     if @board.winning_combination?(@current_player.marker)
@@ -26,9 +26,17 @@ class Game
   end
 
   def turn
-    print "#{@current_player.name}, it's your turn! Enter the position (#{@board.display_valid_positions}): "
-    position = gets.to_i - 1
-    @board.update_board(position, @current_player.marker)
+    loop do
+      print "#{@current_player.name}, it's your turn! Enter the position (#{@board.display_valid_positions}): "
+      position = gets.to_i - 1
+
+      if @board.valid_position?(position)
+        @board.update_board(position, @current_player.marker)
+        break
+      else
+        puts 'Invalid move! Try again.'
+      end
+    end
   end
 
   def game_over?
