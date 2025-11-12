@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# The `Board` class represents the game board for a Tic Tac Toe game.
+# It handles the state of the board, updates the positions, checks for
+# winning combinations, and validates moves.
+#
 class Board
   WINNING_COMBINATIONS = [
     [0, 1, 2], # Top row
