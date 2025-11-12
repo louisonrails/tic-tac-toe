@@ -28,6 +28,13 @@ class Board
     puts " #{@grid[6]} | #{@grid[7]} | #{@grid[8]} "
   end
 
+  def display_valid_positions
+    print 'Available positions: '
+    @grid.each_with_index do |cell, index|
+      print "#{index + 1} " if cell == ' '
+    end
+  end
+
   def update_board(position, marker)
     if valid_position?(position)
       @grid[position] = marker
@@ -50,12 +57,3 @@ class Board
     end
   end
 end
-
-board = Board.new(['X', 'O', 'X', 'O', 'X', 'O', 'X', ' ', ' '])
-board.display
-board.valid_position?(0)
-board.update_board(0, 'O')
-board.display
-
-puts board.winning_combination?('X')
-puts board.winning_combination?('O')

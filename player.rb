@@ -6,6 +6,8 @@
 # provides a method to display information about the player.
 #
 class Player
+  attr_reader :name, :marker
+
   def initialize(name, marker)
     @name = name
     @marker = marker
@@ -15,8 +17,3 @@ class Player
     "Hi, i'm #{@name} and i'm going to play with #{@marker}"
   end
 end
-
-player1 = Player.new('Louis', 'O')
-player2 = Player.new('Julia', 'X')
-puts player1
-puts player2
