@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
 class Board
+  WINNING_COMBINATIONS = [
+    [0, 1, 2], # Top row
+    [3, 4, 5], # Middle row
+    [6, 7, 8], # Bottom row
+    [0, 3, 6], # Left column
+    [1, 4, 7], # Center column
+    [2, 5, 8], # Right column
+    [0, 4, 8], # Diagonal (top-left to bottom-right)
+    [2, 4, 6]  # Diagonal (top-right to bottom-left)
+  ].freeze
+
   def initialize(grid = Array.new(9, ' '))
     @grid = grid
   end
@@ -12,7 +23,35 @@ class Board
     puts '---+---+---'
     puts " #{@grid[6]} | #{@grid[7]} | #{@grid[8]} "
   end
+
+  def update_board(position, marker)
+    if valid_position?(position)
+      @grid[position] = marker
+    else
+      puts 'Invalid move! Position already taken.'
+    end
+  end
+
+  def valid_position?(position)
+    @grid[position] == ' ' and position.between?(0, 8)
+  end
+
+  def full?
+    !@grid.include?(' ')
+  end
+
+  def winning_combination?(marker)
+    WINNING_COMBINATIONS.any? do |combo|
+      combo.all? { |index| @grid[index] == marker }
+    end
+  end
 end
 
 board = Board.new(['X', 'O', 'X', 'O', 'X', 'O', 'X', ' ', ' '])
 board.display
+board.valid_position?(0)
+board.update_board(0, 'O')
+board.display
+
+puts board.winning_combination?('X')
+puts board.winning_combination?('O')
